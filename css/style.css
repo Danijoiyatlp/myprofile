@@ -1,0 +1,271 @@
+/* ============================================================
+   PORTFOLIO - Custom Styles
+   ============================================================
+   Table of Contents:
+   1. Base & Reset
+   2. Glassmorphism Cards
+   3. Tab Navigation
+   4. Skill Bar Animations
+   5. Timeline Styles
+   6. Scrollbar & Utilities
+   7. 3D Icon Hover Effects
+   8. Responsive Overrides
+   ============================================================ */
+
+/* ============================
+   1. BASE & RESET
+   ============================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ============================
+   2. GLASSMORPHISM CARDS
+   ============================ */
+.glass-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.dark .glass-card {
+  background: rgba(30, 30, 50, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.glass-card:hover {
+  box-shadow:
+    0 12px 40px rgba(99, 102, 241, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.dark .glass-card:hover {
+  box-shadow:
+    0 12px 40px rgba(99, 102, 241, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* ============================
+   3. TAB NAVIGATION
+   ============================ */
+
+/* Default tab button */
+.tab-btn {
+  color: #6b7280;
+  position: relative;
+  overflow: hidden;
+}
+
+.dark .tab-btn {
+  color: #9ca3af;
+}
+
+/* Active tab button */
+.tab-btn.active {
+  background: rgba(99, 102, 241, 0.15);
+  color: #6366f1;
+}
+
+.dark .tab-btn.active {
+  background: rgba(99, 102, 241, 0.2);
+  color: #818cf8;
+}
+
+/* Tab button hover */
+.tab-btn:not(.active):hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.dark .tab-btn:not(.active):hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Tab panels */
+.tab-panel {
+  display: none;
+  animation: tabFadeIn 0.45s ease-out;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================
+   4. SKILL BAR ANIMATIONS
+   ============================ */
+
+/* Skill bars start at 0 width, animate to data-level% */
+.skill-bar {
+  width: 0;
+  transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* When the panel is active and bars should animate */
+.skill-bar.animated {
+  /* width is set inline via JS using data-level */
+}
+
+/* Skill item stagger */
+.skill-item {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.5s ease;
+}
+
+.skill-item.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ============================
+   5. TIMELINE STYLES
+   ============================ */
+.timeline-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================
+   6. SCROLLBAR & UTILITIES
+   ============================ */
+
+/* Hide scrollbar for tab nav */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom scrollbar for the page */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
+}
+
+/* ============================
+   7. 3D ICON HOVER EFFECTS
+   ============================ */
+.skill-icon-3d {
+  perspective: 600px;
+}
+
+.skill-icon-3d > div:first-child {
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease;
+}
+
+.skill-icon-3d:hover > div:first-child {
+  transform: rotateY(15deg) rotateX(-10deg) scale(1.1);
+}
+
+/* ============================
+   8. PROJECT CARDS
+   ============================ */
+.project-card {
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+}
+
+/* ============================
+   9. RESPONSIVE OVERRIDES
+   ============================ */
+@media (max-width: 768px) {
+  .glass-card {
+    border-radius: 16px;
+  }
+
+  /* Smaller heading sizes */
+  h1 {
+    font-size: 2.5rem !important;
+  }
+}
+
+/* Smooth theme transition */
+body,
+.glass-card,
+.tab-btn {
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+/* Three.js canvas positioning */
+#three-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Gradient text helper */
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
